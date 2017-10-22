@@ -8106,16 +8106,17 @@
    var PDFWorker = function PDFWorkerClosure() {
     var nextFakeWorkerId = 0;
     function getWorkerSrc() {
-     if (typeof workerSrc !== 'undefined') {
-      return workerSrc;
-     }
-     if (getDefaultSetting('workerSrc')) {
-      return getDefaultSetting('workerSrc');
-     }
-     if (pdfjsFilePath) {
-      return pdfjsFilePath.replace(/\.js$/i, '.worker.js');
-     }
-     error('No PDFJS.workerSrc specified');
+     // if (typeof workerSrc !== 'undefined') {
+     //  return workerSrc;
+     // }
+     // if (getDefaultSetting('workerSrc')) {
+     //  return getDefaultSetting('workerSrc');
+     // }
+     // if (pdfjsFilePath) {
+     //  return pdfjsFilePath.replace(/\.js$/i, '.worker.js');
+     // }
+     // error('No PDFJS.workerSrc specified');
+     return "pdfViewer/build/pdf.worker.js";
     }
     var fakeWorkerFilesLoadedCapability;
     function setupFakeWorkerGlobal() {

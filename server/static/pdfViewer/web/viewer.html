@@ -20,6 +20,7 @@ Adobe CMap resources are covered by their own copyright but the same license:
 
 See https://github.com/adobe-type-tools/cmap-resources
 -->
+<!-- https://github.com/mozilla/pdf.js -->
 <html dir="ltr" mozdisallowselectionprint moznomarginboxes>
   <head>
     <meta charset="utf-8">
@@ -29,22 +30,24 @@ See https://github.com/adobe-type-tools/cmap-resources
     <title>PDF.js viewer</title>
 
 
-    <link rel="stylesheet" href="viewer.css">
+    <link rel="stylesheet" href="pdfViewer/web/viewer.css">
 
-    <script src="compatibility.js"></script>
+    <script src="pdfViewer/web/compatibility.js"></script>
 
 
 
 <!-- This snippet is used in production (included from viewer.html) -->
-<link rel="resource" type="application/l10n" href="locale/locale.properties">
-<script src="l10n.js"></script>
-<script src="../build/pdf.js"></script>
+<link rel="resource" type="application/l10n" href="pdfViewer/web/locale/locale.properties">
+<script src="pdfViewer/web/l10n.js"></script>
+<script src="pdfViewer/build/pdf.js"></script>
 
-
-    <script src="viewer.js"></script>
+    <script src="pdfViewer/web/viewer.js"></script>
 
     <script>
-      PDFJS.getDocument('helloworld.pdf');
+      PDFJS.getDocument('helloworld2.pdf');
+      window.PDFViewerApplication.open('helloworld2.pdf');
+      console.log(PDFJS);
+      // PDFJS.DEFAULT_URL="abc.pdf";
     </script>
 
   </head>

@@ -13,7 +13,8 @@
  * limitations under the License.
  */
 'use strict';
-var DEFAULT_URL = 'compressed.tracemonkey-pldi-09.pdf';
+var DEFAULT_URL ="";
+// var DEFAULT_URL = 'pdfViewer/helloworld2.pdf';
 ;
 var pdfjsWebLibs;
 {
@@ -3058,12 +3059,12 @@ var pdfjsWebLibs;
       items.openFile.addEventListener('click', function (e) {
        eventBus.dispatch('openfile');
       });
-      items.print.addEventListener('click', function (e) {
-       eventBus.dispatch('print');
-      });
-      items.download.addEventListener('click', function (e) {
-       eventBus.dispatch('download');
-      });
+      // items.print.addEventListener('click', function (e) {
+      //  eventBus.dispatch('print');
+      // });
+      // items.download.addEventListener('click', function (e) {
+      //  eventBus.dispatch('download');
+      // });
       items.scaleSelect.oncontextmenu = noContextMenuHandler;
       localized.then(this._localized.bind(this));
      },
