@@ -1,0 +1,24 @@
+.grid-header{
+	width:auto;
+	margin: 15px 0 15px 0;
+}
+.grid-header p{
+	margin:0px;
+}
+.grid-header-left{
+	width: 49%;
+	display: inline-block;
+}
+.grid-header-right{
+	width: 49%;
+	display: inline-block;
+	font-style: italic;
+	text-align:right;
+}
+.grid-image{
+	width:100%
+}
+.writing-tag{
+	font-size: smaller;
+	color: #5363A1;
+}
