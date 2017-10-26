@@ -16,9 +16,18 @@
 	text-align:right;
 }
 .grid-image{
+	height:230px;
 	width:100%
+}
+.grid-tile{
+	min-height: 157px;
 }
 .writing-tag{
 	font-size: smaller;
 	color: #5363A1;
+}
+
+.game-tag{
+	font-size: smaller;
+	color: #701418;
 }
