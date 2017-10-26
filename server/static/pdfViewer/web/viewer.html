@@ -44,9 +44,12 @@ See https://github.com/adobe-type-tools/cmap-resources
     <script src="pdfViewer/web/viewer.js"></script>
 
     <script>
-      PDFJS.getDocument('helloworld2.pdf');
-      window.PDFViewerApplication.open('helloworld2.pdf');
-      console.log(PDFJS);
+      // PDFJS.getDocument('helloworld2.pdf');
+      // window.PDFViewerApplication.open('helloworld2.pdf');
+      window.onload = function () {
+        window.PDFViewerApplication.open('helloworld2.pdf');
+      }
+
       // PDFJS.DEFAULT_URL="abc.pdf";
     </script>
 
