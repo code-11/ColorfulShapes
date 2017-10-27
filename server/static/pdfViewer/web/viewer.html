@@ -30,24 +30,37 @@ See https://github.com/adobe-type-tools/cmap-resources
     <title>PDF.js viewer</title>
 
 
-    <link rel="stylesheet" href="pdfViewer/web/viewer.css">
+    <link rel="stylesheet" href="viewer.css">
 
-    <script src="pdfViewer/web/compatibility.js"></script>
+    <script src="compatibility.js"></script>
 
 
 
 <!-- This snippet is used in production (included from viewer.html) -->
 <link rel="resource" type="application/l10n" href="pdfViewer/web/locale/locale.properties">
-<script src="pdfViewer/web/l10n.js"></script>
-<script src="pdfViewer/build/pdf.js"></script>
+<script src="l10n.js"></script>
+<script src="../build/pdf.js"></script>
 
-    <script src="pdfViewer/web/viewer.js"></script>
+    <script src="viewer.js"></script>
 
     <script>
       // PDFJS.getDocument('helloworld2.pdf');
       // window.PDFViewerApplication.open('helloworld2.pdf');
+      function parseQuery(queryString) {
+          var query = {};
+          var pairs = (queryString[0] === '?' ? queryString.substr(1) : queryString).split('&');
+          for (var i = 0; i < pairs.length; i++) {
+              var pair = pairs[i].split('=');
+              query[decodeURIComponent(pair[0])] = decodeURIComponent(pair[1] || '');
+          }
+          return query;
+      }
+
       window.onload = function () {
-        window.PDFViewerApplication.open('helloworld2.pdf');
+        var query=parseQuery(window.location.search);
+        window.PDFViewerApplication.open("../../site/media/writing/"+query.doc+".pdf");
+        // console.log(query);
+        // window.PDFViewerApplication.open('../../site/media/writing/Asclepius.pdf');
       }
 
       // PDFJS.DEFAULT_URL="abc.pdf";
@@ -161,6 +174,9 @@ See https://github.com/adobe-type-tools/cmap-resources
           <div id="toolbarContainer">
             <div id="toolbarViewer">
               <div id="toolbarViewerLeft">
+                <button id="back" class="toolbarButton" title="Home">
+                  <img src="../../site/images/home.png"/>
+                </button>
                 <button id="sidebarToggle" class="toolbarButton" title="Toggle Sidebar" tabindex="11" data-l10n-id="toggle_sidebar">
                   <span data-l10n-id="toggle_sidebar_label">Toggle Sidebar</span>
                 </button>

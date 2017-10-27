@@ -8116,7 +8116,7 @@
      //  return pdfjsFilePath.replace(/\.js$/i, '.worker.js');
      // }
      // error('No PDFJS.workerSrc specified');
-     return "pdfViewer/build/pdf.worker.js";
+     return "../build/pdf.worker.js";
     }
     var fakeWorkerFilesLoadedCapability;
     function setupFakeWorkerGlobal() {
