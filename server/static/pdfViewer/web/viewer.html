@@ -37,7 +37,7 @@ See https://github.com/adobe-type-tools/cmap-resources
 
 
 <!-- This snippet is used in production (included from viewer.html) -->
-<link rel="resource" type="application/l10n" href="pdfViewer/web/locale/locale.properties">
+<link rel="resource" type="application/l10n" href="locale/locale.properties">
 <script src="l10n.js"></script>
 <script src="../build/pdf.js"></script>
 
@@ -175,7 +175,9 @@ See https://github.com/adobe-type-tools/cmap-resources
             <div id="toolbarViewer">
               <div id="toolbarViewerLeft">
                 <button id="back" class="toolbarButton" title="Home">
-                  <img src="../../site/images/home.png"/>
+                  <a href="../../"> <!--wtf have I done?-->
+                    <img src="../../site/images/home.png" style="width:17px"/>
+                  </a>
                 </button>
                 <button id="sidebarToggle" class="toolbarButton" title="Toggle Sidebar" tabindex="11" data-l10n-id="toggle_sidebar">
                   <span data-l10n-id="toggle_sidebar_label">Toggle Sidebar</span>
