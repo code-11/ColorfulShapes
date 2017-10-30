@@ -180,14 +180,13 @@ CSApp.generate_nav=function(){
 			toReturn+=page_link;
 		}
 	}
-	toReturn+=right_bound;
-	document.getElementById("nav-insertion").innerHTML=toReturn;
+	toReturn+=right_bound;	document.getElementById("nav-insertion").innerHTML=toReturn;
 	document.getElementById("nav-left").onclick=CSApp.decr_page;
 	document.getElementById("nav-right").onclick=CSApp.incr_page;
 	var page_links=document.getElementsByClassName("page-link");
 	for(var j=0; j<page_links.length; j+=1){
 		var cur_link=page_links[j];
-		page_links[j].onclick=function(){CSApp.set_page(parseInt(page_links[j].innerText));};
+		page_links[j].onclick=function(event){CSApp.set_page(parseInt(event.target.innerText)-1)};
 	}
 }
 CSApp.init=function(){
