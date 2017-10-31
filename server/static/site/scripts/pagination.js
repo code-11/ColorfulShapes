@@ -18,7 +18,21 @@ function () {
 };
 
 var CSApp={};
+
+//DEFINE TYPES OF TILES:
+CSApp.TTYPE = {NONE: {str:"None", tag:"",html:"none-filter"},
+	          WRITING: {str:"Writing", tag: "writing-tag", html:"writing-filter"},
+	          GAME: {str:"Game", tag: "game-tag", html:"game-filter"},
+	          OTHER: {str: "Other", tag: "other-tag", html:"other-filter"}};
+CSApp.TTYPE.NONE.filter_fun=function(el){return true};
+CSApp.TTYPE.WRITING.filter_fun=function(el){return el.type==CSApp.TTYPE.WRITING.tag};
+CSApp.TTYPE.GAME.filter_fun=function(el){return el.type==CSApp.TTYPE.GAME.tag};
+CSApp.TTYPE.OTHER.filter_fun=function(el){return el.type==CSApp.TTYPE.OTHER.tag};
+CSApp.TTYPE=Object.freeze(CSApp.TTYPE);
+
 CSApp.total_list=[];
+CSApp.filtered_list=[];
+CSApp.filter_type=undefined;
 CSApp.page=2;
 CSApp.ROWSIZE=3;
 CSApp.NUMROWS=2;
@@ -77,6 +91,7 @@ CSApp.init_tile_info=function(){
 	for(var i=0;i<10;i+=1){
 		CSApp.total_list.push(CSApp.fake_tile(i));
 	}
+	CSApp.total_list=Object.freeze(CSApp.total_list);
 }
 CSApp.fake_tile=function(num){
 	return CSApp.create_tile({
@@ -120,12 +135,12 @@ CSApp.init_grid=function(){
 	var toReturn="";
 	var start=CSApp.GRIDSIZE*CSApp.page;
 	var closed;
-	for(var i=start;i<(start+CSApp.GRIDSIZE) && (i<CSApp.total_list.length);i+=1){
+	for(var i=start;i<(start+CSApp.GRIDSIZE) && (i<CSApp.filtered_list.length);i+=1){
 		if (i%CSApp.ROWSIZE==0){
 			toReturn+="<div class='w3-row-padding'>";
 			closed=false;
 		}
-		toReturn+=CSApp.total_list[i].html;
+		toReturn+=CSApp.filtered_list[i].html;
 		if (i%CSApp.ROWSIZE==(CSApp.ROWSIZE-1)){
 			toReturn+="</div>";
 			closed=true;
@@ -138,7 +153,7 @@ CSApp.init_grid=function(){
 }
 
 CSApp.incr_page=function(){
-	var num_pages=Math.floor(CSApp.total_list.length/CSApp.GRIDSIZE)+1;
+	var num_pages=Math.floor(CSApp.filtered_list.length/CSApp.GRIDSIZE)+1;
 	var max_page_index=num_pages-1;
 	if(CSApp.page<max_page_index){
 		CSApp.page+=1;
@@ -152,7 +167,7 @@ CSApp.decr_page=function(){
 	}
 }
 CSApp.set_page=function(new_page_index){
-	var num_pages=Math.floor(CSApp.total_list.length/CSApp.GRIDSIZE)+1;
+	var num_pages=Math.floor(CSApp.filtered_list.length/CSApp.GRIDSIZE)+1;
 	var max_page_index=num_pages-1;
 	if(new_page_index>=0 && new_page_index<=max_page_index){
 		CSApp.page=new_page_index;
@@ -161,16 +176,35 @@ CSApp.set_page=function(new_page_index){
 		console.log("WRONG "+new_page_index);
 	}
 }
+
+CSApp.perform_filter=function(){
+	CSApp.filtered_list=CSApp.total_list.slice();
+	CSApp.filtered_list=CSApp.filtered_list.filter(CSApp.filter_type.filter_fun);
+}
 CSApp.refresh_nav_grid=function(){
 	CSApp.generate_nav();
 	CSApp.init_grid();
 }
-
+CSApp.set_filter_indicator=function(old_type,new_filter_type){
+	if(old_type!=undefined){
+		document.getElementById(old_type.html).classList.remove("w3-black");
+		document.getElementById(old_type.html).classList.add("w3-white");
+	}
+	document.getElementById(new_filter_type.html).classList.remove("w3-white");
+	document.getElementById(new_filter_type.html).classList.add("w3-black");
+}
+CSApp.set_filter=function(new_filter_type){
+	CSApp.set_filter_indicator(CSApp.filter_type,new_filter_type);
+	CSApp.filter_type=new_filter_type;
+	CSApp.perform_filter();
+	CSApp.refresh_nav_grid();
+	CSApp.set_page(0);
+}
 CSApp.generate_nav=function(){
 	var left_bound="<a id='nav-left' href='#' class='w3-bar-item w3-button w3-hover-black'>&laquo;</a>";
 	var right_bound="<a id='nav-right' href='#' class='w3-bar-item w3-button w3-hover-black'>&raquo;</a>";
 	var toReturn=left_bound;
-	var num_pages=Math.floor(CSApp.total_list.length/CSApp.GRIDSIZE)+1;
+	var num_pages=Math.floor(CSApp.filtered_list.length/CSApp.GRIDSIZE)+1;
 	for(var i=0;i<num_pages;i+=1){
 		var selected="<a href='#' class='w3-bar-item w3-black w3-button page-link'>"+(i+1)+"</a>";
 		var page_link="<a href='#' class='w3-bar-item w3-button w3-hover-black page-link'>"+(i+1)+"</a>";
@@ -189,10 +223,18 @@ CSApp.generate_nav=function(){
 		page_links[j].onclick=function(event){CSApp.set_page(parseInt(event.target.innerText)-1)};
 	}
 }
+CSApp.set_filter_handlers=function(){
+	document.getElementById("none-filter").onclick=function(){CSApp.set_filter(CSApp.TTYPE.NONE)};
+	document.getElementById("writing-filter").onclick=function(){CSApp.set_filter(CSApp.TTYPE.WRITING)};
+	document.getElementById("game-filter").onclick=function(){CSApp.set_filter(CSApp.TTYPE.GAME)};
+	document.getElementById("other-filter").onclick=function(){CSApp.set_filter(CSApp.TTYPE.OTHER)};
+}
 CSApp.init=function(){
 	CSApp.init_tile_info();
 	window.onload = function () {
-		CSApp.refresh_nav_grid();
+		CSApp.set_filter_handlers();
+		CSApp.set_filter(CSApp.TTYPE.NONE);
+		// CSApp.refresh_nav_grid();
 	}
 }
 
