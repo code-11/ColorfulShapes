@@ -1,0 +1,49 @@
+h1, h2, h3, h4{
+	margin:0px;
+}
+header h1{
+	font-size:60pt;
+}
+section h1{
+	font-size:25pt;
+	border-bottom: 5px solid black;
+	margin-bottom: 20px;
+}
+section{
+	margin:20px 0px 20px 0px;
+	clear:both;
+}
+
+section p{
+	margin: 0px 0px 25px 0px;
+}
+
+.profsite-about-img{
+/*	float:left;
+*/	display: inline-block;
+	width:30%;
+	margin-right: 9%;
+}
+.profsite-about-not-img{
+/*	float:right;
+*/	display: inline-block;
+	font-size:20pt;
+	width:60%;
+	vertical-align: top;
+}
+.profsite-header{
+	width:70%;
+	margin:auto;
+	padding:10px;
+	background-color:#009688;
+	color:white;
+}
+.profsite-bulk{
+	width:70%;
+	margin:auto;
+	/*background-color:red;*/
+}
+
+.contact-img{
+	width:200px;
+}
