@@ -33,14 +33,14 @@ section p{
 .profsite-about-img{
 /*	float:left;
 */	display: inline-block;
-	width:30%;
-	margin-right: 9%;
+	width:45%;
+	margin-right: 3%;
 }
 .profsite-about-not-img{
 /*	float:right;
 */	display: inline-block;
 	font-size:20pt;
-	width:60%;
+	width:50%;
 	vertical-align: top;
 }
 .profsite-header{
@@ -90,3 +90,7 @@ section p{
 #email-reveal:hover > #email-hint{
 	visibility: visible;
 } 
+
+#old-site-section{
+	text-align: center;
+}
